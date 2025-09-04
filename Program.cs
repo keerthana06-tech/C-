@@ -1,14 +1,23 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Threading.Channels;
+
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        Sum obj = new Sum();
-        Console.WriteLine("enter no:");
-        int number = int.Parse(Console.ReadLine());
-        int result = obj.CalculateSum(number);
-        Console.WriteLine("sum of digit : " + result);
+        BankAccount account = new BankAccount(5000);
+
+        try
+        {
+            Console.WriteLine("Enter amount to withdraw: ");
+            double amount = Convert.ToDouble(Console.ReadLine());
+
+            account.Withdraw(amount);
+        }
+        catch (InsufficientFundsException ex)
+        {
+            Console.WriteLine("Error: " + ex.Message);
+        }
+
+        Console.WriteLine("Final Balance: " + account.GetBalance());
     }
 }
